@@ -61,11 +61,11 @@
 		9B2A7677289C374900C85106 /* CalculatorSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				9BF1E84A289C6A230077EEBD /* Extentions */,
 				9B2A7678289C374900C85106 /* CalculatorSwiftUIApp.swift */,
 				9B2A768C289C5C0100C85106 /* View */,
 				9B2A768B289C5BFA00C85106 /* ViewModel */,
 				9B2A768A289C5BF300C85106 /* Model */,
+				9BF1E84A289C6A230077EEBD /* Extentions */,
 				9B2A767C289C374E00C85106 /* Assets.xcassets */,
 				9B2A767E289C374E00C85106 /* Preview Content */,
 			);
