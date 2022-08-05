@@ -21,23 +21,30 @@ enum CalculatorButton: String {
          eight = "8",
          nine = "9",
          point = ".",
-         equals = "=",
-         plus = "+",
-         minus = "-",
-         multiply = "X",
-         divide = "/",
          ac = "AC",
-         plusMinus = "±",
-         percent = "%"
+         median = "Median",
+         mean = "Mean",
+         backspace = "\u{232B}",
+         add = "Add",
+         clear = "C"
     
     var backgroundColor: Color {
         switch self {
-        case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .point:
-            return Color(.darkGray)
-        case .ac, .plusMinus, .percent:
+        case .median, .mean:
+            return .orange
+        case .ac, .clear, .add, .backspace:
             return Color(.lightGray)
         default:
-            return .orange
+            return Color(.darkGray)
+        }
+    }
+    
+    var foregroundColor: Color {
+        switch self {
+        case .median, .mean:
+            return .black
+        default:
+            return .white
         }
     }
     

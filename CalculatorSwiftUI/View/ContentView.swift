@@ -12,23 +12,53 @@ struct ContentView: View {
     @EnvironmentObject var env: GlobalEnviroment
     
     let buttons: [[CalculatorButton]] = [
-        [.ac, .plusMinus, .percent, .divide],
-        [.seven, .eight, .nine, .multiply],
-        [.four, .five, .six, .minus],
-        [.one, .two, .three, .plus],
-        [.zero, .point, .equals]
+        [.median, .mean],
+        [.seven, .eight, .nine, .add],
+        [.four, .five, .six, .backspace],
+        [.one, .two, .three, .clear],
+        [.zero, .point, .ac]
     ]
     
     
     var body: some View {
         
         ZStack(alignment: .bottom) {
+            
             Color.black.edgesIgnoringSafeArea(.all)
             
-            VStack {
-                HStack {
-                    Text("200, 300, 24.3, 400, 500")
+            
+            VStack() {
+                HStack() {
+                    Spacer()
+                    Image(systemName: "info.circle")
+                        .resizable()
+                        .frame(width: 25, height: 25, alignment: .center)
+                        .scaledToFill()
                         .foregroundColor(.white)
+                        .padding([.trailing, .top])
+                }
+                Spacer()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(env.storedNumbers, id: \.self) { number in
+                            Text(String(number))
+                                .font(.system(size: 30))
+                                .background(Color(.darkGray))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .contextMenu(ContextMenu(menuItems: {
+                                    Button("Copy", action: {
+                                        UIPasteboard.general.string = env.display
+                                    })
+                                    Button("Delete", action: {
+                                       if let index = env.storedNumbers.firstIndex(of: number) {
+                                            env.storedNumbers.remove(at: index)
+                                        }
+                                    })
+                                }))
+                        }
+                        
+                    }
                 }
                 HStack {
                     Text(env.display)
@@ -37,7 +67,27 @@ struct ContentView: View {
                         .font(.system(size: 64))
                         .minimumScaleFactor(0.1)
                         .lineLimit(1)
+                        .contextMenu(ContextMenu(menuItems: {
+                            Button("Copy", action: {
+                                UIPasteboard.general.string = env.display
+                            })
+                            Button("Delete whole field", action: {
+                                env.display = ""
+                            })
+                        }))
                 }.padding(.bottom)
+                    .gesture(DragGesture(minimumDistance: 3.0)
+                        .onEnded { value in
+                            print(value.translation)
+                            switch(value.translation.width, value.translation.height) {
+                            case (...0, -230...230):
+                                print("left swipe")
+                                env.display.removeLast()
+                            default:
+                                break
+                            }
+                        }
+                    )
                 
                 ForEach(buttons, id: \.self){ row in
                     HStack (spacing: 12) {

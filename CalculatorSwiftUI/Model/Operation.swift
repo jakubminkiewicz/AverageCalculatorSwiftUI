@@ -8,5 +8,5 @@
 import Foundation
 
 enum Operation {
-    case equals, plus, minus, multiply, divide, none
+    case equals, plus, minus, multiply, divide, none, mean, median
 }
