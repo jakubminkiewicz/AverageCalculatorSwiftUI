@@ -10,34 +10,25 @@ import SwiftUI
 
 enum CalculatorButton: String {
     
-    case zero, one, two, three, four, five, six, seven, eight, nine, point
-    case equals, plus, minus, multiply, divide
-    case ac, plusMinus, percent
-    
-    var title: String {
-        switch self {
-        case .zero: return "0"
-        case .one: return "1"
-        case .two: return "2"
-        case .three: return "3"
-        case .four: return "4"
-        case .five: return "5"
-        case .six: return "6"
-        case .seven: return "7"
-        case .eight: return "8"
-        case .nine: return "9"
-        case .equals: return "="
-        case .plus: return "+"
-        case .minus: return "-"
-        case .multiply: return "X"
-        case .divide: return "÷"
-        case .plusMinus: return "±"
-        case .percent: return "%"
-        case .point: return "."
-        default:
-            return "AC"
-        }
-    }
+    case zero = "0",
+         one = "1",
+         two = "2",
+         three = "3",
+         four = "4",
+         five = "5",
+         six = "6",
+         seven = "7",
+         eight = "8",
+         nine = "9",
+         point = ".",
+         equals = "=",
+         plus = "+",
+         minus = "-",
+         multiply = "X",
+         divide = "/",
+         ac = "AC",
+         plusMinus = "±",
+         percent = "%"
     
     var backgroundColor: Color {
         switch self {

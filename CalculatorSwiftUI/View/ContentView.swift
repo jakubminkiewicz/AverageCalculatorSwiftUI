@@ -27,11 +27,17 @@ struct ContentView: View {
             
             VStack {
                 HStack {
-                    Spacer()
+                    Text("200, 300, 24.3, 400, 500")
+                        .foregroundColor(.white)
+                }
+                HStack {
                     Text(env.display)
+                        .frame(width: UIScreen.main.bounds.width - 20, height: 80, alignment: .trailing)
                         .foregroundColor(.white)
                         .font(.system(size: 64))
-                }.padding()
+                        .minimumScaleFactor(0.1)
+                        .lineLimit(1)
+                }.padding(.bottom)
                 
                 ForEach(buttons, id: \.self){ row in
                     HStack (spacing: 12) {

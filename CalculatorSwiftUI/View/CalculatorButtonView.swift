@@ -14,10 +14,9 @@ struct CalculatorButtonView: View {
     
     var body: some View {
         Button {
-            print("You pressed \(button.title)")
             self.env.receiveInput(calculatorButton: button)
         } label: {
-            Text(button.title)
+            Text(button.rawValue)
                 .font(.system(size: 32))
                 .frame(width: buttonWidth(button: button), height: buttonHeight() )
                 .foregroundColor(.white)
@@ -29,7 +28,8 @@ struct CalculatorButtonView: View {
     private func buttonWidth(button: CalculatorButton) -> CGFloat {
         
         if button == .zero {
-            return (UIScreen.main.bounds.width - 5 * 12) / 4 * 2 + 12
+            // There are 5 spaces between buttons of spacing:12, so we add 12 to final result for UI to allign
+            return ((UIScreen.main.bounds.width - 5 * 12) / 4) * 2 + 12
         }
         
         return (UIScreen.main.bounds.width - 5 * 12) / 4

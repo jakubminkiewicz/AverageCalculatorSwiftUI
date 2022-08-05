@@ -31,13 +31,13 @@ class GlobalEnviroment: ObservableObject {
             self.runningNumber = 0.0
             self.operation = .none
         default:
-            if self.display == "0" && calculatorButton.title == "0" {
+            if self.display == "0" && calculatorButton.rawValue == "0" {
                 break
             }
-            else if self.display == "0" && calculatorButton.title != "."{
-                self.display = calculatorButton.title
+            else if self.display == "0" && calculatorButton.rawValue != "."{
+                self.display = calculatorButton.rawValue
             } else {
-                self.display += calculatorButton.title
+                self.display += calculatorButton.rawValue
             }
         }
     }
