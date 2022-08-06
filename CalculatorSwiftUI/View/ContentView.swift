@@ -11,6 +11,8 @@ struct ContentView: View {
     
     @EnvironmentObject var env: GlobalEnviroment
     
+    @State var infoPresented = false
+    
     let buttons: [[CalculatorButton]] = [
         [.median, .mean],
         [.seven, .eight, .nine, .add],
@@ -36,6 +38,9 @@ struct ContentView: View {
                         .scaledToFill()
                         .foregroundColor(.white)
                         .padding([.trailing, .top])
+                        .onTapGesture {
+                            self.infoPresented = true
+                        }
                 }
                 Spacer()
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -98,6 +103,14 @@ struct ContentView: View {
                 }
             }
             .padding(.bottom)
+        }
+        .popover(isPresented: $infoPresented) {
+            VStack {
+                Spacer()
+                Text("Hello! This is how you use the app")
+                Text("Hello! This is how you use the app")
+                Spacer()
+            }
         }
         
     }

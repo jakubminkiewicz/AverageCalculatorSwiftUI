@@ -17,8 +17,6 @@ class GlobalEnviroment: ObservableObject {
     
     func receiveInput(calculatorButton: CalculatorButton) {
         
-        print("You pressed \(calculatorButton.rawValue)")
-        
         switch calculatorButton {
         case .add:
             if storedNumbers[0] == "" {
@@ -36,9 +34,17 @@ class GlobalEnviroment: ObservableObject {
                     storedNumbers.append(display)
                 }
                 let doubles = storedNumbers.map { Double($0)! }
-                print("Here are the doubles: \(doubles)")
-                print("Here is the mean \(calculateMean(array: doubles))")
                 display = Double(calculateMean(array: doubles)).stringWithoutZeroFraction
+            }
+        case .median:
+            if storedNumbers[0] == "" {
+                break
+            } else {
+                if display != "" {
+                    storedNumbers.append(display)
+                }
+                let doubles = storedNumbers.map { Double($0)! }
+                display = Double(calculateMedian(array: doubles)).stringWithoutZeroFraction
             }
         case .ac:
             storedNumbers = [""]
@@ -50,7 +56,14 @@ class GlobalEnviroment: ObservableObject {
                 display.removeLast()
             }
         default:
-            display += calculatorButton.rawValue
+            if self.display == "0" && calculatorButton.rawValue == "0" {
+                break
+            }
+            else if self.display == "0" && calculatorButton.rawValue != "."{
+                self.display = calculatorButton.rawValue
+            } else {
+                self.display += calculatorButton.rawValue
+            }
         }
     }
     
@@ -60,48 +73,16 @@ class GlobalEnviroment: ObservableObject {
         return Double(sum / Double(array.count))
     }
     
+    
+    private func calculateMedian(array: [Double]) -> Double {
+        let sorted = array.sorted()
+        //Return average of two middle numbers if array is even
+        if sorted.count % 2 == 0 {
+            return Double((sorted[(sorted.count / 2)] + sorted[(sorted.count / 2) - 1])) / 2
+        } else {
+            return Double(sorted[(sorted.count - 1) / 2])
+        }
+    }
+    
 
 }
-
-//    private func preformCalculation(operation: Operation) {
-//        switch operation {
-//        case .plus:
-//            display = Double(self.runningNumber + Double(display)!).stringWithoutZeroFraction
-//        case .multiply:
-//            display = Double(self.runningNumber * Double(display)!).stringWithoutZeroFraction
-//        case .divide:
-//            display = Double(self.runningNumber / Double(display)!).stringWithoutZeroFraction
-//        case .minus:
-//            display = Double(self.runningNumber - Double(display)!).stringWithoutZeroFraction
-//        case .none:
-//            break
-//        default:
-//            runningNumber = 0.0; display = ""
-//        }
-//    }
-
-
-//        switch calculatorButton {
-//        case .plus, .minus, .multiply, .divide, .equals, .plusMinus, .percent:
-//            if calculatorButton == .plus { operation = .plus; self.runningNumber = Double(display)!; display = "" }
-//            else if calculatorButton == .minus { operation = .minus; self.runningNumber = Double(display)!; display = ""}
-//            else if calculatorButton == .multiply { operation = .multiply; self.runningNumber = Double(display)!; display = "" }
-//            else if calculatorButton == .divide { operation = .divide; self.runningNumber = Double(display)!; display = "" }
-//            else if calculatorButton == .equals {
-//                preformCalculation(operation: operation)
-//            }
-//            break
-//        case .ac:
-//            self.display = ""
-//            self.runningNumber = 0.0
-//            self.operation = .none
-//        default:
-//            if self.display == "0" && calculatorButton.rawValue == "0" {
-//                break
-//            }
-//            else if self.display == "0" && calculatorButton.rawValue != "."{
-//                self.display = calculatorButton.rawValue
-//            } else {
-//                self.display += calculatorButton.rawValue
-//            }
-//        }

@@ -49,3 +49,7 @@ enum CalculatorButton: String {
     }
     
 }
+
+extension CalculatorButton: Identifiable {
+    var id: Self { self }
+}
