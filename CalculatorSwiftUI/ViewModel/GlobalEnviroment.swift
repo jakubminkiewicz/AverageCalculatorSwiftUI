@@ -13,8 +13,6 @@ class GlobalEnviroment: ObservableObject {
     
     @Published var storedNumbers = [""]
     
-    var operation: Operation = .none
-    
     func receiveInput(calculatorButton: CalculatorButton) {
         
         switch calculatorButton {
@@ -23,38 +21,38 @@ class GlobalEnviroment: ObservableObject {
                 storedNumbers[0] = display
                 display = ""
             } else {
-            storedNumbers.append(display)
-            display = ""
+                storedNumbers.append(display)
+                display = ""
             }
+            
         case .mean:
             if storedNumbers[0] == "" {
                 break
             } else {
-                if display != "" {
-                    storedNumbers.append(display)
-                }
                 let doubles = storedNumbers.map { Double($0)! }
                 display = Double(calculateMean(array: doubles)).stringWithoutZeroFraction
             }
+            
         case .median:
             if storedNumbers[0] == "" {
                 break
             } else {
-                if display != "" {
-                    storedNumbers.append(display)
-                }
                 let doubles = storedNumbers.map { Double($0)! }
                 display = Double(calculateMedian(array: doubles)).stringWithoutZeroFraction
             }
+            
         case .ac:
             storedNumbers = [""]
             display = ""
+            
         case .clear:
             display = ""
+            
         case .backspace:
             if display != "" {
                 display.removeLast()
             }
+            
         default:
             if self.display == "0" && calculatorButton.rawValue == "0" {
                 break
@@ -64,17 +62,21 @@ class GlobalEnviroment: ObservableObject {
             } else {
                 self.display += calculatorButton.rawValue
             }
+            
         }
     }
     
     private func calculateMean(array: [Double]) -> Double {
+        // Find the total of all Double in array
         let sum = array.reduce(0, +)
         
+        // Returns sum diveded by number of elements in array
         return Double(sum / Double(array.count))
     }
     
     
     private func calculateMedian(array: [Double]) -> Double {
+        // Sort array in order
         let sorted = array.sorted()
         //Return average of two middle numbers if array is even
         if sorted.count % 2 == 0 {
@@ -84,5 +86,5 @@ class GlobalEnviroment: ObservableObject {
         }
     }
     
-
+    
 }
